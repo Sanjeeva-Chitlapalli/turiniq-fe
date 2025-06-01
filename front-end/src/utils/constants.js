@@ -208,3 +208,102 @@ export const knowledgeMockQuestions = [
     ],
   },
 ];
+
+const mockTickets = [
+  {
+    _id: { $oid: "683c783d5fb2b0a58185c1d0" },
+    business_id: "BusinessType.TECH_turiniq.com",
+    customer_id: null,
+    customer_name: null,
+    customer_email: null,
+    customer_phone: null,
+    conversation: [
+      { user: "I want a refund.", timestamp: "2025-06-01T15:56:16.756738" },
+      { user: "Please process it quickly.", timestamp: "2025-06-01T15:56:44.718660" },
+    ],
+    reason: "Refund request received. This requires immediate escalation to my supervisor as per company policy.",
+    status: "open",
+    created_at: { $date: { $numberLong: "1748793372721" } },
+  },
+  {
+    _id: { $oid: "683c783d5fb2b0a58185c1d1" },
+    business_id: "BusinessType.RETAIL_example.com",
+    customer_id: "cust_123",
+    customer_name: "John Doe",
+    customer_email: "john.doe@example.com",
+    customer_phone: "+1234567890",
+    conversation: [
+      { user: "My order hasn't arrived.", timestamp: "2025-06-01T10:30:00.123456" },
+      { user: "Can you track it?", timestamp: "2025-06-01T10:32:15.654321" },
+    ],
+    reason: "Non-delivered order. Tracking information to be verified.",
+    status: "in_progress",
+    created_at: { $date: { $numberLong: "1748785000000" } },
+  },
+  {
+    _id: { $oid: "683c783d5fb2b0a58185c1d2" },
+    business_id: "BusinessType.SERVICES_abc.com",
+    customer_id: "cust_456",
+    customer_name: "Jane Smith",
+    customer_email: "jane.smith@example.com",
+    customer_phone: "+0987654321",
+    conversation: [
+      { user: "Issue with billing.", timestamp: "2025-06-01T12:45:00.987654" },
+    ],
+    reason: "Billing dispute. Awaiting clarification from the billing team.",
+    status: "closed",
+    created_at: { $date: { $numberLong: "1748788000000" } },
+  },
+];
+
+const mockLeads = [
+  {
+    _id: { $oid: "683c7ae9541bde534aa876a8" },
+    business_id: "BusinessType.TECH_turiniq.com",
+    customer_name: "Test User",
+    customer_email: "test_user@gmail.com",
+    customer_phone: "+910980099090",
+    conversation: [
+      { user: "I want a refund.", timestamp: "2025-06-01T16:06:04.303007" },
+      { user: "I want a refund.", timestamp: "2025-06-01T16:07:04.346687" },
+      { agent: "Please provide your name to proceed.", timestamp: "2025-06-01T16:07:05.013503" },
+      { user: "My name is Test User", timestamp: "2025-06-01T16:07:23.518898" },
+      { agent: "Please provide your email to proceed.", timestamp: "2025-06-01T16:07:25.912237" },
+      { user: "My email is test_user@gmail.com", timestamp: "2025-06-01T16:07:45.187347" },
+      { agent: "Please provide your phone to proceed.", timestamp: "2025-06-01T16:07:45.807876" },
+      { user: "My phone is +91 0980099090", timestamp: "2025-06-01T16:08:06.354094" },
+    ],
+    reason: "Refund request escalation",
+    status: "open",
+    created_at: { $date: { $numberLong: "1748793942085" } },
+  },
+  {
+    _id: { $oid: "683c7ae9541bde534aa876a9" },
+    business_id: "BusinessType.RETAIL_example.com",
+    customer_name: "Alice Brown",
+    customer_email: "alice.brown@example.com",
+    customer_phone: "+1234567890",
+    conversation: [
+      { user: "Interested in your product.", timestamp: "2025-06-01T09:15:00.123456" },
+      { agent: "Great! Can you share your contact details?", timestamp: "2025-06-01T09:16:00.654321" },
+      { user: "Name: Alice Brown, Email: alice.brown@example.com", timestamp: "2025-06-01T09:17:30.987654" },
+    ],
+    reason: "Product inquiry",
+    status: "in_progress",
+    created_at: { $date: { $numberLong: "1748782500000" } },
+  },
+  {
+    _id: { $oid: "683c7ae9541bde534aa876aa" },
+    business_id: "BusinessType.SERVICES_abc.com",
+    customer_name: "Unknown",
+    customer_email: "bob.smith@example.com",
+    customer_phone: "Unknown",
+    conversation: [
+      { user: "Can you help with a subscription issue?", timestamp: "2025-06-01T14:30:00.456789" },
+      { agent: "Please provide your email for verification.", timestamp: "2025-06-01T14:31:00.789123" },
+    ],
+    reason: "Subscription issue",
+    status: "closed",
+    created_at: { $date: { $numberLong: "1748790000000" } },
+  },
+];

@@ -2,6 +2,8 @@ import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { FiInbox, FiBook, FiSearch } from 'react-icons/fi'; // Icons from react-icons
 import { FaMagento } from "react-icons/fa";
+import { BsTicketPerforated } from "react-icons/bs";
+import { MdLeaderboard } from "react-icons/md";
 
 const SidebarItem = ({ icon, label, count, to }) => {
   const location = useLocation();
@@ -43,6 +45,8 @@ const Sidebar = () => {
         <SidebarItem icon={<FiInbox />} label="Inbox" to="/inbox" />
         <SidebarItem icon={<FaMagento/>} label="Agent" to="/turin-agent" />
         <SidebarItem icon={<FiBook />} label="Knowledge Base" to="/knowledge-base" />
+        <SidebarItem icon={<BsTicketPerforated />} label="Tickets" to="/Tickets" />
+        <SidebarItem icon={<MdLeaderboard />} label="Leads" to="/leads" />
       </div>
 
       {/* Bottom section */}

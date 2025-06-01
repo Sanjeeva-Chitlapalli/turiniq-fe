@@ -14,6 +14,8 @@ import MainContent from './components/MainContent.jsx';
 import Signup from './pages/Signup.jsx';
 import './index.css';
 import InitialData from './pages/InitialData.js';
+import Tickets from './pages/Tickets.jsx'
+import Leads from './pages/Leads.jsx'
 
 // Protected Route component to check if user has signed up
 const ProtectedRoute = ({ children }) => {
@@ -27,6 +29,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <BrowserRouter>
         <Routes>
           <Route path="/signup" element={<Signup />} />
+          <Route path="/tickets" element={<Tickets />} />
+          <Route path="/leads" element={<Leads />} />
           <Route
               path="/business/configurator"
               element={
