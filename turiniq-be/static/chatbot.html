@@ -57,7 +57,7 @@
 
     <script>
         const businessId = window.location.pathname.split('/').pop();
-        const ws = new WebSocket(`ws://localhost:8000/ws/customer/${businessId}`);
+        const ws = new WebSocket(`ws://turiniq-fe.onrender.com/ws/customer/${businessId}`);
 
         const chatMessages = document.getElementById('chatMessages');
         const messageInput = document.getElementById('messageInput');

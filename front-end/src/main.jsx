@@ -1,29 +1,30 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { Provider, useSelector } from 'react-redux';
-import { store } from './store/store.js';
-import App from './App.jsx';
-import Inbox from './pages/Inbox.jsx';
-import TurinAgent from './pages/TurinAgent.jsx';
-import KnowledgeBase from './pages/KnowledgeBase.jsx';
-import Setup from './pages/Setup.jsx';
-import Settings from './pages/Settings.jsx';
-import Profile from './pages/Profile.jsx';
-import MainContent from './components/MainContent.jsx';
-import Signup from './pages/Signup.jsx';
-import './index.css';
-import InitialData from './pages/InitialData.js';
-import Tickets from './pages/Tickets.jsx'
-import Leads from './pages/Leads.jsx'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { Provider, useSelector } from "react-redux";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import App from "./App.jsx";
+import MainContent from "./components/MainContent.jsx";
+import "./index.css";
+import Inbox from "./pages/Inbox.jsx";
+import InitialData from "./pages/InitialData.jsx";
+import KnowledgeBase from "./pages/KnowledgeBase.jsx";
+import Leads from "./pages/Leads.jsx";
+import Profile from "./pages/Profile.jsx";
+import Settings from "./pages/Settings.jsx";
+import Setup from "./pages/Setup.jsx";
+import Signup from "./pages/Signup.jsx";
+import Tickets from "./pages/Tickets.jsx";
+import TurinAgent from "./pages/TurinAgent.jsx";
+import { store } from "./store/store.js";
 
 // Protected Route component to check if user has signed up
 const ProtectedRoute = ({ children }) => {
-  const isSignedUp = useSelector((state) => state.business.isSignedUp);
+  const businessState = JSON.parse(localStorage.getItem("businessState"));
+  const isSignedUp = useSelector((state) => businessState.isSignedUp);
   return isSignedUp ? children : <Navigate to="/signup" replace />;
 };
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
@@ -32,13 +33,13 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/tickets" element={<Tickets />} />
           <Route path="/leads" element={<Leads />} />
           <Route
-              path="/business/configurator"
-              element={
-                <ProtectedRoute>
-                  <InitialData />
-                </ProtectedRoute>
-              }
-            />
+            path="/business/configurator"
+            element={
+              <ProtectedRoute>
+                <InitialData />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/" element={<App />}>
             <Route index element={<Navigate to="/signup" replace />} />
             <Route
@@ -97,7 +98,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 </ProtectedRoute>
               }
             />
-            
           </Route>
         </Routes>
       </BrowserRouter>
