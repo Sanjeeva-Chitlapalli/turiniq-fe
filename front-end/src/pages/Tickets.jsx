@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 import { useSelector } from "react-redux";
 
+const backend_url = import.meta.env.VITE_BACKEND_URL || "";
+
 const Tickets = () => {
   const [expandedRows, setExpandedRows] = useState({});
   const [tickets, setTickets] = useState([]);
@@ -30,7 +32,7 @@ const Tickets = () => {
       try {
         setLoading(true);
         const response = await fetch(
-          `${process.env.VITE_BACKEND_URL}/tickets/${encodeURIComponent(
+          `${backend_url}/tickets/${encodeURIComponent(
             businessId
           )}`
         );

@@ -372,18 +372,13 @@ const TurinAgent = () => {
       console.log("API response:", result);
       localStorage.setItem("agentProfileAnswers", JSON.stringify(answers));
       localStorage.setItem("turinAgentSetupComplete", "true");
-      window.open(
-        `${backend_url}/BusinessType.${userProfile.businessType.toUpperCase()}_${
-          userProfile.domain
-        }`,
-        "_blank"
-      );
       localStorage.setItem(
         "businessId",
         `BusinessType.${userProfile.businessType.toUpperCase()}_${
           userProfile.domain
         }`
       );
+      window.location.reload();
     } catch (error) {
       console.error("Failed to configure agent:", error);
       alert("Failed to save agent configuration. Please try again.");

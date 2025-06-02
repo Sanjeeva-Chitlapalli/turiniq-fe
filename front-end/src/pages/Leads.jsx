@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 import { useSelector } from "react-redux";
 
+const backend_url = import.meta.env.VITE_BACKEND_URL || "";
+
 const Leads = () => {
   const [expandedRows, setExpandedRows] = useState({});
   const [leads, setLeads] = useState([]);
@@ -30,7 +32,7 @@ const Leads = () => {
       try {
         setLoading(true);
         const response = await fetch(
-          `${process.env.VITE_BACKEND_URL}/leads/${encodeURIComponent(businessId)}`
+          `${backend_url}/leads/${encodeURIComponent(businessId)}`
         );
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
