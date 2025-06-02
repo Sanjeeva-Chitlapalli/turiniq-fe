@@ -1,10 +1,9 @@
-import React from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
-import Sidebar from './components/Sidebar.jsx'; // Adjust path as needed
+import { Outlet, useLocation } from "react-router-dom";
+import Sidebar from "./components/Sidebar.jsx"; // Adjust path as needed
 
 const App = () => {
   const location = useLocation();
-  const showSidebar = location.pathname !== '/signup';
+  const showSidebar = location.pathname !== "/signup";
   return (
     <div className="flex bg-black">
       {showSidebar && <Sidebar />}

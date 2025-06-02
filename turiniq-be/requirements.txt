@@ -1,0 +1,11 @@
+google-adk
+google-generativeai
+python-dotenv
+fastapi
+uvicorn
+pymongo
+requests
+beautifulsoup4
+pypdf2
+pydantic==2.11.0
+websockets

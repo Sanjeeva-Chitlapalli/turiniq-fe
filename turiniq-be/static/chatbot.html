@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TurinIQ Chatbot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        #chatMessages {
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+        }
+
+        .message {
+            margin: 5px 0;
+            padding: 8px;
+            border-radius: 5px;
+        }
+
+        .user-message {
+            background-color: #007bff;
+            color: white;
+            margin-left: 20%;
+            margin-right: 5px;
+            text-align: right;
+        }
+
+        .agent-message {
+            background-color: #e9ecef;
+            color: black;
+            margin-right: 20%;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+        <h1 class="text-2xl font-bold mb-4 text-center">AI Assistant</h1>
+        <div id="chatMessages" class="mb-4">
+            <div id="connectionStatus" class="text-center text-gray-500">Connecting...</div>
+        </div>
+        <div class="flex">
+            <textarea id="messageInput"
+                class="w-full p-2 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500" rows="2"
+                placeholder="Type your message..."></textarea>
+            <button id="sendButton" class="bg-blue-500 text-white p-2 rounded-r-lg hover:bg-blue-600"
+                disabled>Send</button>
+        </div>
+        <p class="text-xs text-gray-500 mt-2 text-center">Press Enter to send, Shift+Enter for a new line</p>
+    </div>
+
+    <script>
+        const businessId = window.location.pathname.split('/').pop();
+        const ws = new WebSocket(`ws://localhost:8000/ws/customer/${businessId}`);
+
+        const chatMessages = document.getElementById('chatMessages');
+        const messageInput = document.getElementById('messageInput');
+        const sendButton = document.getElementById('sendButton');
+        const connectionStatus = document.getElementById('connectionStatus');
+
+        ws.onopen = () => {
+            console.log('WebSocket connection established');
+            connectionStatus.textContent = 'Connected';
+            connectionStatus.style.color = 'green';
+            sendButton.disabled = false;
+        };
+
+        ws.onmessage = (event) => {
+            const message = event.data;
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message', 'agent-message');
+            messageElement.textContent = message;
+            chatMessages.appendChild(messageElement);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        };
+
+        ws.onclose = () => {
+            console.log('WebSocket connection closed');
+            connectionStatus.textContent = 'Disconnected';
+            connectionStatus.style.color = 'red';
+            sendButton.disabled = true;
+        };
+
+        ws.onerror = (error) => {
+            console.error('WebSocket error:', error);
+            connectionStatus.textContent = 'Error';
+            connectionStatus.style.color = 'red';
+            sendButton.disabled = true;
+        };
+
+        function sendMessage() {
+            const message = messageInput.value.trim();
+            if (message) {
+                ws.send(message);
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('message', 'user-message');
+                messageElement.textContent = message;
+                chatMessages.appendChild(messageElement);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                messageInput.value = '';
+            }
+        }
+
+        sendButton.addEventListener('click', sendMessage);
+
+        messageInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+
+</html>
