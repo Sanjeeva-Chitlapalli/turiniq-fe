@@ -7,6 +7,8 @@ import { AgentProfile } from "../components/AgentProfile";
 import AnimatedSection from "../ui/animatedSection";
 import { mockQuestions } from "../utils/constants";
 
+const backend_url = import.meta.env.VITE_BACKEND_URL || "";
+
 // Typing effect component
 const TypingEffect = ({ text, onComplete }) => {
   const [displayedText, setDisplayedText] = useState("");
@@ -353,15 +355,14 @@ const TurinAgent = () => {
     for (const file of files) {
       formData.append("files", file);
     }
+    console.log("FormData prepared:", formData);
+    console.log(backend_url);
 
     try {
-      const response = await fetch(
-        "${process.env.BACKEND_URL}/configure-agent",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
+      const response = await fetch(`${backend_url}/configure-agent`, {
+        method: "POST",
+        body: formData,
+      });
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -371,7 +372,12 @@ const TurinAgent = () => {
       console.log("API response:", result);
       localStorage.setItem("agentProfileAnswers", JSON.stringify(answers));
       localStorage.setItem("turinAgentSetupComplete", "true");
-      window.location.href = "/knowledge-base";
+      window.open(
+        `${backend_url}/BusinessType.${userProfile.businessType.toUpperCase()}_${
+          userProfile.domain
+        }`,
+        "_blank"
+      );
       localStorage.setItem(
         "businessId",
         `BusinessType.${userProfile.businessType.toUpperCase()}_${
@@ -426,6 +432,17 @@ const TurinAgent = () => {
     "Let's create it together! Pick your vibe, goals, and style, and I'll shape myself into your perfect teammate—step by step!",
     "Ready to mold me? Let's get started—I'll learn from you and grow into the ideal helper you need!",
   ];
+
+  const handleTestAgent = () => {
+    const businessData =
+      JSON.parse(localStorage.getItem("agentProfileAnswers")) || {};
+    console.log("Testing agent with business data:", businessData);
+    const businessId = `BusinessType.${businessData.business_type?.toUpperCase()}_${
+      businessData.domain || "example.com"
+    }`;
+    console.log("Business ID for testing:", businessId);
+    window.open(`${backend_url}/${encodeURIComponent(businessId)}`, "_blank");
+  };
 
   return (
     <div className="flex flex-row items-center gap-6">
@@ -687,9 +704,19 @@ const TurinAgent = () => {
 
           {currentQuestionIndex === mockQuestions.length + 1 && (
             <div className="w-[800px] flex flex-col justify-center items-start mb-12">
-              <h2 className="text-4xl font-semibold text-white mb-4">
-                Edit Your Agent Profile
-              </h2>
+              <div className="flex w-full justify-between items-center">
+                <h2 className="text-4xl font-semibold text-white mb-4">
+                  Edit Your Agent Profile
+                </h2>
+                <button
+                  className="px-3 py-1 bg-white text-black rounded-full hover:bg-gray-200 text-sm"
+                  onClick={handleTestAgent}
+                >
+                  {" "}
+                  Test Agent
+                </button>
+              </div>
+
               <div className="space-y-8 w-full">
                 {mockQuestions.map((question) => (
                   <div key={question.id} className="w-full p-4 rounded-lg">

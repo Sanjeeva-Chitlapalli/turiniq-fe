@@ -1,9 +1,7 @@
-import React from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
-import { FiInbox, FiBook, FiSearch } from 'react-icons/fi'; // Icons from react-icons
-import { FaMagento } from "react-icons/fa";
 import { BsTicketPerforated } from "react-icons/bs";
+import { FaMagento } from "react-icons/fa";
 import { MdLeaderboard } from "react-icons/md";
+import { NavLink, useLocation } from "react-router-dom";
 
 const SidebarItem = ({ icon, label, count, to }) => {
   const location = useLocation();
@@ -13,7 +11,9 @@ const SidebarItem = ({ icon, label, count, to }) => {
     <NavLink
       to={to}
       className={`flex items-center justify-between px-2 py-3 mx-2 rounded cursor-pointer transition-colors ${
-        isActive ? 'bg-white text-black' : 'text-white hover:bg-gray-700 hover:text-white'
+        isActive
+          ? "bg-white text-black"
+          : "text-white hover:bg-gray-700 hover:text-white"
       }`}
     >
       <div className="flex items-center space-x-3">
@@ -34,7 +34,7 @@ const Sidebar = () => {
     <div className="w-64 bg-black fixed h-screen  flex flex-col">
       {/* Logo area */}
       <div className="p-4">
-      {/* <div className="p-4 border-b border-gray-700"> */}
+        {/* <div className="p-4 border-b border-gray-700"> */}
         <div className="flex items-center space-x-2">
           <span className="text-white font-semibold text-lg">TurinIQ</span>
         </div>
@@ -42,10 +42,14 @@ const Sidebar = () => {
 
       {/* Navigation items */}
       <div className="flex-1 py-4">
-        <SidebarItem icon={<FiInbox />} label="Inbox" to="/inbox" />
-        <SidebarItem icon={<FaMagento/>} label="Agent" to="/turin-agent" />
-        <SidebarItem icon={<FiBook />} label="Knowledge Base" to="/knowledge-base" />
-        <SidebarItem icon={<BsTicketPerforated />} label="Tickets" to="/Tickets" />
+        {/* <SidebarItem icon={<FiInbox />} label="Inbox" to="/inbox" /> */}
+        <SidebarItem icon={<FaMagento />} label="Agent" to="/turin-agent" />
+        {/* <SidebarItem icon={<FiBook />} label="Knowledge Base" to="/knowledge-base" /> */}
+        <SidebarItem
+          icon={<BsTicketPerforated />}
+          label="Tickets"
+          to="/Tickets"
+        />
         <SidebarItem icon={<MdLeaderboard />} label="Leads" to="/leads" />
       </div>
 

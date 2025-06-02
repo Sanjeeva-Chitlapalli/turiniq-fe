@@ -1,33 +1,40 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { setBusinessData } from '../store/businessSlice';
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { setBusinessData } from "../store/businessSlice";
 
 const Signup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    businessName: '',
-    businessType: '',
-    contactEmail: '',
+    businessName: "",
+    businessType: "",
+    contactEmail: "",
   });
   const [errors, setErrors] = useState({});
 
-  const businessTypes = ['Tech', 'Retail', 'Finance', 'Healthcare', 'Education', 'Other'];
+  const businessTypes = [
+    "Tech",
+    "Retail",
+    "Finance",
+    "Healthcare",
+    "Education",
+    "Other",
+  ];
 
   const validateForm = () => {
     const newErrors = {};
     if (!formData.businessName.trim()) {
-      newErrors.businessName = 'Business Name is required';
+      newErrors.businessName = "Business Name is required";
     }
     if (!formData.businessType) {
-      newErrors.businessType = 'Please select a Business Type';
+      newErrors.businessType = "Please select a Business Type";
     }
     if (!formData.contactEmail.trim()) {
-      newErrors.contactEmail = 'Contact Email is required';
+      newErrors.contactEmail = "Contact Email is required";
     } else if (!/\S+@\S+\.\S+/.test(formData.contactEmail)) {
-      newErrors.contactEmail = 'Please enter a valid email address';
+      newErrors.contactEmail = "Please enter a valid email address";
     }
     return newErrors;
   };
@@ -40,10 +47,9 @@ const Signup = () => {
     }));
     setErrors((prev) => ({
       ...prev,
-      [name]: '',
+      [name]: "",
     }));
   };
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -58,31 +64,34 @@ const Signup = () => {
 
     // Check localStorage for agentType, business, and goal
     try {
-      const serializedState = localStorage.getItem('businessState');
+      const serializedState = localStorage.getItem("businessState");
       const businessState = serializedState ? JSON.parse(serializedState) : {};
-      const hasSettingsData = businessState.agentType && businessState.business && businessState.goal;
+      const hasSettingsData =
+        businessState.agentType && businessState.business && businessState.goal;
 
       // Redirect based on presence of settings data
-      if (hasSettingsData) {
-        navigate('/business/configurator');
-      } else {
-        navigate('/settings');
-      }
+
+      navigate("/business/configurator");
     } catch (err) {
-      console.error('Error reading from localStorage:', err);
+      console.error("Error reading from localStorage:", err);
       // Default to settings page if there's an error
-      navigate('/settings');
+      navigate("/settings");
     }
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-black">
       <div className="bg-[#292928] p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-3xl font-bold text-white mb-6 text-center">Sign Up Your Business</h2>
+        <h2 className="text-3xl font-bold text-white mb-6 text-center">
+          Sign Up Your Business
+        </h2>
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Business Name */}
           <div>
-            <label htmlFor="businessName" className="block text-sm font-medium text-white mb-1">
+            <label
+              htmlFor="businessName"
+              className="block text-sm font-medium text-white mb-1"
+            >
               Business Name
             </label>
             <input
@@ -101,7 +110,10 @@ const Signup = () => {
 
           {/* Business Type */}
           <div>
-            <label htmlFor="businessType" className="block text-sm font-medium text-white mb-1">
+            <label
+              htmlFor="businessType"
+              className="block text-sm font-medium text-white mb-1"
+            >
               Business Type
             </label>
             <select
@@ -125,7 +137,10 @@ const Signup = () => {
 
           {/* Contact Email */}
           <div>
-            <label htmlFor="contactEmail" className="block text-sm font-medium text-gray-300 mb-1">
+            <label
+              htmlFor="contactEmail"
+              className="block text-sm font-medium text-gray-300 mb-1"
+            >
               Primary Contact Email
             </label>
             <input

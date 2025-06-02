@@ -30,7 +30,9 @@ const Tickets = () => {
       try {
         setLoading(true);
         const response = await fetch(
-          `${process.env.BACKEND_URL}/tickets/${encodeURIComponent(businessId)}`
+          `${process.env.VITE_BACKEND_URL}/tickets/${encodeURIComponent(
+            businessId
+          )}`
         );
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);

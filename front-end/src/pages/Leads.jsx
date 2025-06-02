@@ -30,7 +30,7 @@ const Leads = () => {
       try {
         setLoading(true);
         const response = await fetch(
-          `${process.env.BACKEND_URL}/leads/${encodeURIComponent(businessId)}`
+          `${process.env.VITE_BACKEND_URL}/leads/${encodeURIComponent(businessId)}`
         );
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
